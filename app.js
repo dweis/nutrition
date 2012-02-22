@@ -4,9 +4,15 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , mongoose = require('mongoose');
 
-var app = module.exports = express.createServer();
+app = module.exports = express.createServer();
+
+app.db = mongoose.connect('mongodb://localhost/nutrition')
+
+// Models
+require('./models/food')(app.db)
 
 // Configuration
 

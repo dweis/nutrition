@@ -1,3 +1,71 @@
+var mongoose = require('mongoose')
+  , csv = require('csv')
+  , db = mongoose.connect('mongodb://localhost/nutrition')
+  , Food = require('./models/food')(db)
+
+csv()
+  .fromPath(__dirname + '/data/ABBREV.txt', { delimiter: '^', quote: '~' })
+  .on('data', function(data, index) {
+          console.log(data)
+    var food = new Food({
+      ndbNo: data[0]
+    , shortDescription: data[1]
+    , water: data[2]
+    , kCal: data[3]
+    , protein: data[4]
+    , lipid: data[5]
+    , ash: data[6]
+    , carbohydrate: data[7]
+    , fiber: data[8]
+    , sugar: data[9]
+    , calium: data[10]
+    , iron: data[11]
+    , magnesium: data[12]
+    , phosphorus: data[13]
+    , potassium: data[14]
+    , sodium: data[15]
+    , zinc: data[16]
+    , copper: data[17]
+    , manganese: data[18]
+    , selenium: data[19]
+    , vitaminC: data[20]
+    , thiamin: data[21]
+    , riboflavin: data[22]
+    , niacin: data[23]
+    , pantothenicAcid: data[24]
+    , vitaminB6: data[25]
+    , folateTotal: data[26]
+    , folicAcid: data[27]
+    , foodFolate: data[28]
+    , folateDfe: data[29]
+    , vitaminB12: data[30]
+    , vitaminAIu: data[31]
+    , vimatinARae: data[32]
+    , retinol: data[33]
+    , vitaminE: data[34]
+    , vitaminK: data[35]
+    , alphaCarotene: data[36]
+    , betaCarotene: data[37]
+    , betaCrypoxanthin: data[38]
+    , lycopene: data[39]
+    , luteinZeazanthin: data[40]
+    , fatSaturated: data[41]
+    , fatMonounsaturated: data[42]
+    , fatPolyunsaturated: data[43]
+    , cholestrol: data[44]
+    , weight1: { name: data[46], weight: data[45] }
+    , weight2: { name: data[48], weight: data[47] }
+    , refusePct: data[49]
+    })
+
+    food.save()
+  })
+  .on('end', function(count) {
+    db.disconnect()
+  })
+
+
+/*
 var sqlite3 = require('sqlite3').verbose()
   , db = new sqlite3.Database(':memory:')
   , csv = require('csv')
@@ -147,7 +215,7 @@ function createAndPopulateWeight(done) {
 
   csv()
     .fromPath(__dirname + '/data/WEIGHT.txt', { delimiter: '^'
-                                              /*, quote: '~' */})
+                                              , quote: '~' })
     .on('data', function(data, index) {
       stmt.run.apply(stmt, data)
     })
@@ -227,17 +295,5 @@ db.serialize(function(){
       })
     })
   })
-  /*
-  db.run("CREATE TABLE lorem (info TEXT)");
-
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
-
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  });
-  */
 })
+*/
