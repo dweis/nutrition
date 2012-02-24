@@ -1,4 +1,5 @@
-define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day', 'hbs!/templates/search_food_item', 'collections/food' ],
+define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day', 
+         'hbs!/templates/search_food_item', 'collections/food', 'jquery-ui' ],
     function($, _, Backbone, dayTemplate, searchFoodItemTemplate, foodCollection) {
 
       var dayView = Backbone.View.extend({
@@ -6,7 +7,6 @@ define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day', 'hbs!/templat
         initialize: function() {
           this.collection = foodCollection;
           this.collection.bind('add', this.foodAdded);
-          this.collection.bind('remove', this.foodRemoved);
           this.collection.bind('reset', this.emptyFoods);
         },
         render: function() {
@@ -25,10 +25,10 @@ define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day', 'hbs!/templat
           })
         },
         foodAdded: function(food) {
+          var id = '#ndb_' + food.get('ndbNo');
+
           $('#container ul').append(searchFoodItemTemplate(food.toJSON()));
-        },
-        foodRemoved: function(food) {
-          $('#container ul').find('li#' + food.get('ndbNo')).remove();
+          $(id).draggable();
         },
         emptyFoods: function() {
           $('#container ul').empty();
