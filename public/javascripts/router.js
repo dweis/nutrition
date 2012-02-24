@@ -8,13 +8,13 @@ define([ 'jquery', 'underscore', 'backbone', 'views/default', 'views/day' ],
           '*actions': 'defaultRoute'
         },
         newDay: function() {
-          dayView.render()
+          dayView.render();
         },
         showDay: function(id) {
-          alert('not yet implemented')
+          alert('not yet implemented');
         },
         defaultRoute: function(actions) {
-          defaultView.render()
+          defaultView.render();
         }
     });
 

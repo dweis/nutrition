@@ -5,6 +5,12 @@ define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day' ],
         el: $('#container'),
         render: function() {
           this.el.html(dayTemplate())
+        },
+        events: {
+          'keyup input#search': 'search'
+        },
+        search: function() {
+          alert('searching')
         }
       })
 
