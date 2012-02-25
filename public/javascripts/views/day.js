@@ -4,14 +4,15 @@ define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day',
 
       var dayView = Backbone.View.extend({
         el: $('#container'),
+
+        // INIT
         initialize: function() {
           this.collection = foodCollection;
           this.collection.bind('add', this.foodAdded);
           this.collection.bind('reset', this.emptyFoods);
         },
-        render: function() {
-          this.el.html(dayTemplate())
-        },
+
+        // EVENTS
         events: {
           'change input#search': 'search'
         },
@@ -24,14 +25,22 @@ define([ 'jquery', 'underscore', 'backbone', 'hbs!/templates/day',
             collection.add(foods);
           })
         },
+        dropped: function(ev, ui) {
+          alert('dropped')
+        },
         foodAdded: function(food) {
-          var id = '#ndb_' + food.get('ndbNo');
-
-          $('#container ul').append(searchFoodItemTemplate(food.toJSON()));
-          $(id).draggable();
+          var html = searchFoodItemTemplate(food.toJSON());
+          $('ul#foods').append(html);
+          $('ul#foods li').last().draggable({ revert: true });
         },
         emptyFoods: function() {
-          $('#container ul').empty();
+          $('ul#foods').empty();
+        },
+
+        // RENDER
+        render: function() {
+          this.el.html(dayTemplate())
+          $('.day-slot').droppable({ drop: this.dropped });
         }
       })
 

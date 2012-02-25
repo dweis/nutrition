@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
+#day-slots {
+
+}
+
+.day-slot {
+  border: 1px solid #f00;
+  width: 200px;
+  height: 60px;
+}
